@@ -101,3 +101,30 @@ class Enemy():
 
     def __str__(self):
         return self.info()
+
+
+class Hydra(Enemy):
+    def __init__(self, name, health, heads=1):
+        super().__init__(name, health)
+        if heads < 1:
+            raise ValueError('Hydra cannot has less than 1 head')
+
+        self._heads = int(heads)
+        self._max_health = int(health)
+
+    def get_heads(self):
+        return self._heads
+
+    def get_max_health(self):
+        return self._max_health
+
+    def regenerate(self, points):
+        if (points < 0):
+            raise ValueError('Cannot regenerate negative number of points')
+
+        self._health = min(self._max_health, self._health + points)
+
+    def __str__(self):
+        heads = 'head' if (self._heads == 1) else 'heads'
+
+        return f'{super().__str__()}. I have {self._heads} {heads}.'

@@ -1,4 +1,4 @@
-from classes import Player, Enemy
+from classes import Player, Enemy, Hydra
 import pytest
 
 
@@ -232,3 +232,43 @@ def test_enemy_is_not_alive():
     enemy.take_damage(10)
 
     assert not (enemy.is_alive())
+
+
+def test_hydra_creat():
+    hydra = Hydra('Hydra', health=20, heads=3)
+
+    assert hydra.get_name() == 'Hydra'
+    assert hydra.get_health() == 20
+    assert hydra.get_heads() == 3
+
+
+def test_hydra_creat_default_heads():
+    hydra = Hydra('Hydra', health=20)
+
+    assert hydra.get_heads() == 1
+
+
+def test_hydra_introduce_as_str():
+    hydra = Hydra('Hydra', health=20, heads=3)
+
+    assert str(hydra) == 'My name is Hydra. I have 20 health points left. I have 3 heads.'
+
+    hydra = Hydra('Hydra', health=15)
+
+    assert str(hydra) == 'My name is Hydra. I have 15 health points left. I have 1 head.'
+
+
+def test_hydra_regenerate():
+    hydra = Hydra('Hydra', 30, 2)
+    hydra.take_damage(10)
+    hydra.regenerate(5)
+
+    assert hydra.get_health() == 25
+
+
+def test_hydra_regenerate_max_health():
+    hydra = Hydra('Hydra', 30, 2)
+    hydra.take_damage(10)
+    hydra.regenerate(15)
+
+    assert hydra.get_health() == 30

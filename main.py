@@ -1,1 +1,2 @@
-print('Game XXX')
+from classes import Enemy, Hydra
+
